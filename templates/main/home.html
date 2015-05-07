@@ -1,0 +1,42 @@
+<div data-ng-controller="main.HomeCtrl" class="container ng-scope">
+    <table class="table table-hover" data-ng-show="!CSCreator && !CSReviewer && !USCreator && !USReviewer">
+        <thead>
+        <tr>
+            <th>Version</th>
+            <th>State</th>
+            <th>Created Date</th>
+            <th>From User</th>
+            <th>To User</th>
+            <th>Comment</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-ng-class="{'success' : item.IsUnread}" data-ng-repeat="item in dashboardDetails" data-ng-click="saveReadUnRead($index)">
+            <td>{{item.Version}}</td>
+            <td>{{item.State}}</td>
+            <td>{{item.CreatedDate}}</td>
+            <td>{{item.FromUserName}}</td>
+            <td>{{item.ToUserName}}</td>
+            <td>{{item.Comment | LimitCharacter}}</td>
+        </tr>
+        </tbody>
+    </table>
+	
+	<table class="table table-hover" data-ng-show="CSCreator || CSReviewer || USCreator || USReviewer">
+        <thead>
+        <tr>
+			<th data-ng-show="CSCreator || CSReviewer">Carrier</th>
+            <th>Status</th>
+            <th>Count</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-ng-repeat="dashboardDetail in dashboardDetails">
+            
+			<td data-ng-show="CSCreator || CSReviewer" data-ng-bind="dashboardDetail.CarrierCode"></td>
+			<td data-ng-click="navigateToErrorLocale(dashboardDetail.Status, dashboardDetail.CarrierCode, dashboardDetail.CarrierId)" data-ng-bind="dashboardDetail.Status"></td>
+            <td data-ng-bind="dashboardDetail.StatusCount"></td>		
+        </tr>
+        </tbody>
+    </table>
+</div>

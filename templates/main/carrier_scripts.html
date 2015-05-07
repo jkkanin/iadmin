@@ -1,0 +1,183 @@
+<div class="container" data-ng-controller="config.CarrierScriptsCtrl" data-ng-click="showSearchBox($event)">    
+    <div class="header">
+		<div class="modal-title">
+			<div class="row">
+				<div class="span3">
+					<h4>Carrier Scripts</h4>
+				</div>
+				<div class="span4">
+					<label style="display: none;" class="text-success" data-ng-show="successMsg != ''">{{successMsg}}</label>
+				</div>
+			</div>	
+		</div>
+    </div>
+    <div class="body">
+	    <div class="row form-horizontal">
+	    	<div class="span7 control-group">
+	    		<select id="carrierid" data-ng-hide="fromDash" data-ng-model="currentCarrier" class="input-block-level span2" data-ng-change="getCarrierScripts()" data-ng-options="carrier.Description for carrier in carriers">
+	    			<option value="">Select Carrier</option>
+                </select>
+                &nbsp;&nbsp;&nbsp;
+	    		<button id="addBtn" class="btn" data-ng-disabled="!currentCarrier || scriptHeading == 'Create Carrier Script'" data-ng-click="addCarrierScript(-1)" data-ng-show="creator && !fromDash">Add</button>
+	    		<button id="removeBtn" class="btn" data-ng-disabled="selCarrierScriptIds.length == 0" data-ng-click="showRemoveConfirmation()" data-ng-show="creator && !fromDash">Remove</button>
+	    		<button id="historyBtn" class="btn" data-ng-disabled="selCarrierScriptIds.length > 1 || selCarrierScriptIds.length == 0" data-toggle="modal" modal-dialog-url="history" data-backdrop="static" data-target="#historyModalPanel" data-ng-show="(creator || administrator) && !fromDash">History</button>
+	    		<button data-toggle="modal" class="btn" data-ng-disabled="!currentCarrier || allCarrierScripts.length == 0" modal-dialog-url="search_replace" id="searchBtn" data-backdrop="static" data-target="#searchModalPanel" data-ng-show="(creator || administrator) && !fromDash">Search & Replace</button>	    		
+	    	</div>
+	    	<div class="span4 sliding-header sliding hide">
+				<div class="header">
+					<h4 class="modal-title">{{scriptHeading}}</h4>
+			    </div>
+			</div>
+	    </div>
+	    <div class="row">
+		    <div class="span4 notes" data-ng-bind="carrierLanguageList">
+	    	</div>
+		    <div class="span3 notes text-right">
+		    		* Click on the header to toggle search text
+	    	</div>
+	    </div>
+	    <div class="row">
+	    	<div id="carrierScriptList" class="span7 tableContainer">
+			    <table class="table table-striped table-hover mainTable scrollTable">
+					<thead class="fixedHeader">
+			          <tr>
+			            <th class="selColumn" style="width:30px !important">
+			            	<input type="checkbox" class="" data-ng-model="chkAllCarrierScripts"
+                                   data-ng-disabled="fromDash || reviewer || administrator || !currentCarrier || allCarrierScripts.length == 0 || (allCarrierScripts | filter:search:strict).length == 0" data-ng-readonly="fromDash || reviewer || administrator" data-ng-click="selAllCarrierScripts($event, (allCarrierScripts | filter:search:strict))"/>
+			            </th>
+			            <th id="codeHeader" style="width:180px !important">
+			            	<span id="codeHeaderLbl" data-ng-show="showCodeSearch == false">Code</span>
+			            	<input maxlength="25" style="display: none;" type="text" id="txtCode" data-ng-model="search.Code"
+                                   placeholder="Code" class="space-restriction" data-ng-show="showCodeSearch == true"
+                                   data-ng-change="clearSearchFields(); selAllCarrierScripts(null, (allCarrierScripts | filter:search:strict))"/>
+			            </th>
+			            <th id="descHeader" style="width:180px !important">
+			            	<span id="descHeaderLbl" data-ng-show="showDescSearch == false">Description</span>
+			            	<input maxlength="25" style="display: none;" type="text" id="txtDesc" data-ng-model="search.Description" placeholder="Description" class="space-restriction"
+                                   data-ng-show="showDescSearch == true"  data-ng-change="clearSearchFields(); selAllCarrierScripts(null, (allCarrierScripts | filter:search:strict))"/>
+			            </th>
+			            <th id="typeHeader" style="width:70px !important">
+			            	<span id="typeHeaderLbl">Type</span>
+			            </th>
+						<th id="stateHeader" style="width:90px !important">
+			            	<span id="stateHeaderLbl">Status</span>			            	
+			            </th>
+						<th id="commentHeader" style="width:100px !important">
+			            	<span id="commentHeaderLbl">Comment</span>			            	
+			            </th>
+			          </tr>
+			        </thead>
+					<tbody data-ng-class="{'scrollContent' : allCarrierScripts.length > 0}">
+						<tr ng-repeat="locale in allCarrierScripts | filter:search:strict" data-ng-dblclick="addCarrierScript($index, locale.Comments, (allCarrierScripts | filter:search:strict))">
+							<td style="width:30px !important">
+								<input type="checkbox" class="form-control" value="{{locale.Code}}" id="{{locale.Id}}" data-ng-click="getSelCarrierScriptIds($event, (allCarrierScripts | filter:search:strict))" data-ng-disabled="locale.ErrorType == 'UNIVERSAL_SCRIPT' || locale.Status.Status != 'APPROVED' || fromDash" data-ng-readonly="locale.Status.Status != 'APPROVED' || fromDash" />
+							</td>
+							<td style="width:180px !important;word-break: break-all" title="{{locale.Code}}. Double click on the row to modify." data-ng-bind="locale.Code | LimitCharacter"></td>
+							<td style="width:180px !important;word-break: break-all" title="{{locale.Description}}. Double click on the row to modify." data-ng-bind="locale.Description | LimitCharacter"></td>
+							<td style="width:70px !important">{{locale.ErrorType == "UNIVERSAL_SCRIPT" && 'Universal' || 'Carrier'}}</td>
+							<td style="width:90px;word-break: break-all !important" title="{{locale.Status.Status}}. Double click on the row to modify." data-ng-bind="locale.Status.Status | LimitCharacter"></td>
+							<td style="width:100px;word-break: break-all !important" title="{{locale.Comments}}. Double click on the row to modify." data-ng-bind="locale.Comments | LimitCharacter"></td>
+						</tr>
+						<tr data-ng-show="allCarrierScripts.length == 0" class="emptyTable">
+                             <td colspan="6"><label>No carrier scripts found</label></td>
+                         </tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="row sliding-body sliding hide container span5">
+				<form name="carrierScriptForm">
+					<div id="carrierScriptDetails" resize="295" >
+						<div class="span4">
+							<div class="control-group row">
+				                <label class="control-label span1">Carrier</label>
+				                <div class="controls row-fluid">
+				                    <label class="control-label span1">{{currentCarrier.Description}}</label>
+				                </div>
+				            </div>
+				            <div class="control-group row" data-ng-hide="carrierScript.Id">
+				                <label class="control-label span1" for="copyFrom">Copy From</label>
+				                <div class="controls row-fluid">
+				                    <select id="copyFrom" data-ng-model="copyFrom" class="input-block-level span7" data-ng-change="showUniversalScriptDetails()" data-ng-options="universalScript.Code for universalScript in allUniversalScripts">
+	                					<option value="">Select Universal Script</option>
+	                				</select>				                    
+				                </div>
+				            </div>
+							<div class="control-group row">
+				                <label class="control-label span1" for="code">Code</label>
+				                <div class="controls row-fluid">
+				                    <input data-ng-disabled="carrierScript.Id" id="code" class="span7" name="code" maxlength="100" title="{{carrierScript.Code}}" data-ng-model="carrierScript.Code" type="text" required data-ng-readonly="reviewer || administrator || readOnlyStatus || (fromDash && !readOnlyStatus)">
+				                    <div class="control-group row">
+				                    	<span class="span4"></span><span class="text-error" data-ng-show="carrierScriptForm.code.$error.required && firsttime">Code is Required</span>				                    	
+				                    	<span class="text-error" data-ng-show="existCode">Code is already exists</span>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="control-group row">
+				                <label class="control-label span1" for="description">Description</label>
+				                <div class="controls row-fluid">
+				                    <textarea rows="3" maxlength="5000" data-ng-disabled="carrierScript.ErrorType == 'UNIVERSAL_SCRIPT'" class="span7" id="description" name="description" data-ng-model="carrierScript.Description" required data-ng-readonly="reviewer || administrator || readOnlyStatus || (fromDash && readOnlyStatus)"></textarea>
+				                    <div class="control-group row">
+										<span class="span4"></span><span class="text-error" data-ng-show="carrierScriptForm.description.$error.required && firsttime">Description is Required</span>
+									</div>                   
+				                </div>
+				            </div>
+				            <div class="control-group row" ng-repeat="errorLocale in carrierScript.ErrorLocaleDetails">
+								<label class="control-label span1" for="errorLocale{{errorLocale.LanguageId}}">{{errorLocale.Language}}</label>
+				                <div class="controls row-fluid">
+				                    <textarea maxlength="5000" data-ng-disabled="carrierScript.ErrorType == 'UNIVERSAL_SCRIPT'" rows="3" class="span7" id="errorLocale{{errorLocale.LanguageId}}" name="errorLocale{{errorLocale.LanguageId}}" data-ng-model="errorLocale.Value" required data-ng-readonly="reviewer || administrator || readOnlyStatus || (fromDash && readOnlyStatus)"></textarea>
+				                    <div class="control-group row">
+										<span class="span4"></span><span class="text-error" data-ng-show="!errorLocale.Value && firsttime">{{errorLocale.Language}} value is Required</span>
+									</div>                    
+				                </div>
+							</div>
+							<div class="control-group row" data-ng-hide="creator && !Comments">
+								<label class="control-label span1" for="comment">Comment</label>
+								<div class="controls row-fluid">
+									<textarea rows="3" class="span7" id="comments" name='comments' class="input-block-level" data-ng-model="carrierScript.Comments" data-ng-readonly="creator || administrator || (creator && readOnlyStatus)" data-ng-required="reviewer" maxlength="200"></textarea>
+									<div class="control-group row">
+										<span class="span4"></span><span class="text-error" data-ng-show="carrierScriptForm.comments.$error.required && firsttime">Comment is Required</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="span5">
+							<div class="control-group">
+				                <div class=" button-section section">
+				                    <a data-toggle="modal" class="btn" data-ng-click="saveCarrierScript((allCarrierScripts | filter:{Code : carrierScript.Code, ErrorType : carrierScript.ErrorType}).length)" id="saveBtn" data-ng-show="creator && !readOnlyStatus && !(fromDash && readOnlyStatus)">Save</a>
+				                    &nbsp;&nbsp;<a data-toggle="modal" class="btn" data-ng-click="cancelCarrierScript()" id="cancelBtn" data-ng-show="(creator && readOnlyStatus) || creator || administrator">Cancel</a>				                    
+									<a class="btn" data-ng-show="reviewer" data-ng-click="approverCarrierScript('APPROVED')" class="btn"  id="approveCarrierScriptBtn">Approve</a>
+									&nbsp;&nbsp;<a class="btn" data-ng-show="reviewer" data-ng-click="approverCarrierScript('REJECTED')" class="btn"  id="rejectCarrierScriptBtn">Reject</a>
+									&nbsp;&nbsp;<a class="btn" data-ng-hide="hideReview" data-ng-click="approverCarrierScript('REVIEWED')" class="btn"  id="reviewCarrierScriptBtn">Review</a>
+				                </div>
+				            </div>
+						</div>
+					</div>					
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="removeScriptModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" >&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Remove Carrier Scripts</h4>
+				</div>
+				<div class="modal-body">
+					Do you want to remove the selected carrier scripts?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="removeCarrierScripts()">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="historyModalPanel" class="modal hide fade"></div>
+	
+	<div id="searchModalPanel" class="modal hide fade"></div>
+</div>

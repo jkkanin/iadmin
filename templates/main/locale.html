@@ -1,0 +1,55 @@
+<div class="container container-fluid formcenter" data-ng-controller="config.LocaleCtrl">
+
+    <form name="localeform">
+        <div class="form-horizontal pagetop span5">
+
+            <div class="control-group">
+                <label class="control-label" for="carrierid">Carrier</label>
+                <div class="controls row-fluid">
+                    <select id="carrierid" data-ng-disabled="isAdd" data-ng-model="selectedCarrier" class="span7 input-block-level"  ng-options="carrier.Description for carrier in carriers">
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-group" data-ng-hide="isAdd">
+                <label class="control-label" for="localeid">App Locale</label>
+                <div class="controls row-fluid">
+                    <select id="localeid" data-ng-disabled="isAdd" data-ng-model="selectedLocale" class="span7 input-block-level"   ng-options="locale.Description for locale in locales">
+                    </select>
+                    <a data-toggle="modal" id="addBtn" class="btn" data-ng-hide="isAdd" data-ng-click="addLocale()">Add</a>
+                </div>
+                </div>
+
+            <div class="control-group" data-ng-show="isAdd">
+                <label class="control-label" for="applocaleid">App Locale</label>
+                <div class="controls row-fluid">
+                    <select id="applocaleid" required data-ng-model="selectedAppLocale" class="span7 input-block-level" name="applocaleid"  ng-options="(locale.Code + ' - ' + locale.Description) for locale in appLocales">
+                    </select>
+                    <div>
+                        <span class="text-error" data-ng-show="localeform.applocaleid.$error.required && firsttime" style="display: none;">App Locale is Required</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group" data-ng-repeat="localeMapping in localeMappings">
+                <label class="control-label" for="code[{{$index}}]">{{localeMapping.Language.Description}}</label>
+                <div class="controls row-fluid">
+
+                    <input type="text" id="code[{{$index}}]" name="code[{{$index}}]" class="span7 input-block-level" data-ng-model="localeMapping.LocaleDetail.Value" required>
+                    <div>
+                        <span class="text-error" data-ng-show="!localeMapping.LocaleDetail.Value && firsttime">{{localeMapping.Language.Description}} Locale Value is Required</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class=" button-section section">
+                    <label class="text-error" data-ng-show="invalidMap" style="display: none;">Selected AppLocale is already mapped to another locale</label>
+                    <a data-toggle="modal"  class="btn button-section" data-ng-click="saveLocale()" id="saveBtn">Save</a>
+                    <a data-toggle="modal" class="btn button-section" data-ng-click="cancel()" id="cancelBtn">Cancel</a> <br/><br/>
+                    <label class="text-success" data-ng-show="saved && !firsttime && !isAdd" style="display: none;">Saved Successfully</label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

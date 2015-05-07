@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!--Admin Console Single Page App -->
+<html xmlns:ng="http://angularjs.org" id="ng-app">
+	<head>
+		<title>iWeb Admin Console</title>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+		<!-- <link rel="shortcut icon" href="/favicon.ico" /> 
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" /> -->
+		
+		<link rel="stylesheet" href="styles/bootstrap/bootstrap.css"/>
+		<link rel="stylesheet" href="styles/bootstrap/bootstrap-responsive.css"/>
+		<link rel="stylesheet" href="styles/main.css"/>
+
+	</head>
+
+<body>
+
+    <div id="container">
+          <div class="headerline">
+              <span class="logo"></span>
+          </div>
+          <div data-ng-view></div>
+          <div id='inProgressModal' class="in-progress-modal">
+              <div class="modal-backdrop" data-ng-show="loading"></div>
+              <div class="modal fade in" data-ng-show="loading">
+                  <div class="modal-body">
+                      <div class="text-center">
+                          <img class="circle" src="assets/img/loading.gif">
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div id="footer">
+              <p>Copyright &copy; Asurion 1994-2013. All Rights Reserved. • Terms &amp; Conditions • Privacy Policy • Contact Us</p>
+          </div>
+    </div>
+
+	<script type="text/javascript" src="lib/labjs/LAB.js"></script>
+	<script>
+		$LAB.script("lib/jquery/jquery-1.8.3.js").wait()
+			.script("lib/bootstrap/bootstrap.js").wait()
+			.script("lib/angular/angular.js").wait()
+			.script("lib/angular/angular-resource.js").wait()
+			.script("util/util.js")
+            .script("acl/acl.js")
+			.script("login/login.js")
+            .script("login/directives.js")
+            .script("config/config.js")
+            .script("config/models/Version.js")
+            .script("config/models/Wizard.js")
+            .script("config/models/Carrier.js")
+            .script("config/models/Locale.js")
+            .script("config/models/Error.js")
+            .script("config/models/Status.js")
+            .script("config/models/ScriptSearchCriteria.js")
+            .script("config/models/ServerEnv.js")
+            .script("config/models/ErrorLocale.js")
+            .script("config/models/LocaleDetail.js")
+            .script("config/models/ErrorLocaleDetail.js")
+            .script("config/models/Page.js")
+            .script("config/models/SubPage.js")
+            .script("config/models/Pane.js")
+            .script("config/models/Field.js")
+            .script("config/models/Language.js")
+            .script("config/models/CarrierLanguage.js")
+            .script("config/models/AppLocale.js")
+            .script("config/models/AppWizard.js")
+            .script("config/models/AppPage.js")
+            .script("config/models/AppField.js")
+            .script("config/models/AppError.js")
+            .script("config/models/LocaleMapping.js")
+            .script("config/services.js")
+            .script("config/directives.js")
+            .script("config/filters.js")
+            .script("config/controllers/CarrierCtrl.js")
+            .script("config/controllers/VersionCtrl.js")
+            .script("config/controllers/PopoverCtrl.js")
+            .script("config/controllers/CarrierLanguageCtrl.js")
+            .script("config/controllers/LanguageCtrl.js")
+            .script("config/controllers/LocaleCtrl.js")
+            .script("config/controllers/ErrorLocaleCtrl.js")
+            .script("config/controllers/UniversalScriptsCtrl.js")
+            .script("config/controllers/CarrierScriptsCtrl.js")
+            .script("config/controllers/SearchReplaceCtrl.js")
+            .script("config/controllers/HistoryCtrl.js")
+            .script("config/controllers/ExportCtrl.js")
+            .script("config/controllers/ImportCtrl.js")
+            .script("config/controllers/ActivateConfigCtrl.js")
+            .script("config/controllers/ServerEnvironmentCtrl.js")
+            .script("main/main.js")
+            .script("main/controllers/UserRoleCtrl.js")
+            .script("main/controllers/UserCtrl.js")
+            .script("main/controllers/RoleCtrl.js")
+            .script("main/controllers/HomeCtrl.js")
+            .script("main/models/UserRoles.js")
+            .script("main/models/Roles.js")
+            .script("main/models/Users.js")
+            .script("logout/logout.js")
+			.script("app.js")
+			.wait(function () {
+				angular.bootstrap(document, ['adminConsoleApp']);
+			});
+
+    </script>
+</body>
+
+</html>

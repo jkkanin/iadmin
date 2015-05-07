@@ -1,0 +1,67 @@
+<div class="container container-fluid" data-ng-controller="config.ErrorLocaleCtrl">
+
+    <form name="errorlocaleform" class="formcenter">
+        <div class="pagetop">
+
+            <div class="row">
+                <label class="span1" for="carrierid">Carrier</label>
+                <div class="span3">
+                    <select id="carrierid" data-ng-disabled="isAdd" data-ng-model="selectedCarrier" class="input-block-level"  ng-options="carrier.Description for carrier in carriers">
+                    </select>
+                </div>
+            </div>
+
+            <div class="row" >
+                <label class="span1" for="localeid">App Error</label>
+                <div class="span3">
+                    <select data-ng-hide="isAdd" id="localeid" data-ng-model="selectedErrorLocale"
+                            class="input-block-level"   data-ng-options="locale.Description for locale in errorlocales">
+                    </select>
+                    <select data-ng-show="isAdd" id="applocaleid"  data-ng-model="selectedAppErrorLocale"
+                            class="input-block-level" name="applocaleid"  data-ng-options="locale.Description for locale in allAppErrors | exclude:errorlocales:['Id','AppErrorId']">
+                    </select>
+                </div>
+                <a data-toggle="modal" id="addBtn" class="span1 btn" data-ng-hide="isAdd" data-ng-click="addErrorLocale()">Add</a>
+            </div>
+
+            <div class="row" >
+                <label class="span1" for="code">Code</label>
+                <div class="span4">
+                    <input type="text" id="code" name="code" data-ng-model="editableErrorLocale.Code" class="input-block-level" required
+                            data-ng-readonly="!isAdd"/>
+                    <span class="text-error" data-ng-show="errorlocaleform.code.$error.required && firsttime">App Error Code is Required</span>
+                </div>
+            </div>
+
+            <div class="row" >
+                <label class="span1" for="description">Description</label>
+                <div class="span3">
+                    <input  type="text"  id="description" name="description" data-ng-model="editableErrorLocale.Description" class="input-block-level" required
+                            data-ng-readonly="!isAdd"/>
+                    <span class="text-error" data-ng-show="errorlocaleform.description.$error.required && firsttime">App Error Description is Required</span>
+                    <div>
+                        <span class="text-error" data-ng-show="errorlocaleform.Username.$error.maxlength">App Error Description cannot be longer than 30 characters</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" data-ng-repeat="localeMapping in localeMappings">
+                <label class="span1" for="code[{{$index}}]">{{localeMapping.Language.Description}}</label>
+                <div class="span4">
+
+                    <textarea rows=4 class="span5" id="code[{{$index}}]" name="code[{{$index}}]" class="input-block-level" data-ng-model="localeMapping.LocaleDetail.Value" required/>
+                    <span class="text-error" data-ng-show="!localeMapping.LocaleDetail.Value && firsttime">{{localeMapping.Language.Description}} Locale Value is Required</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="button-section section">
+                    <a data-toggle="modal" class="btn" data-ng-click="saveErrorLocale()" id="saveBtn">Save</a>
+                    <a data-toggle="modal" class="btn" data-ng-hide="isAdd" modal-url="search_replace" buttondiv="button-section" id="searchBtn">Search</a>
+                    <a data-toggle="modal" class="btn" data-ng-click="cancel()" id="cancelBtn">Cancel</a> <br/><br/>
+                    <label class="text-success" data-ng-show="saved && !firsttime && !isAdd">Saved Successfully</label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

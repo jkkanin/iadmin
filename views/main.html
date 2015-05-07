@@ -1,0 +1,113 @@
+<div>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <div class="nav-collapse collapse" style="height: 0px;">
+            <ul class="nav">
+                <li data-ng-class="{'active' : (page == 'home')}">
+                    <a href="" data-ng-click="routingTo('/main/home')"><h4>Home</h4></a>
+                </li>
+                <li class="divider-vertical"></li>
+                <menu-item name="User" >
+                    <li class="dropdown" data-ng-class="{'active' : (page == 'user')}">
+                        <a href="" data-toggle="dropdown"  href="" id="userTab"><h4>User<b class="caret"></b></h4></a>
+                        <ul class="dropdown-menu">
+                            <menu-item name="Users">
+                                <li><a href="" data-ng-click="routingTo('/main/user', 1)" id="usersMenu">Users</a></li>
+                            </menu-item>
+                            <menu-item name="Roles">
+                                <li><a href="" data-ng-click="routingTo('/main/user', 2)" id="rolesMenu">Roles</a></li>
+                            </menu-item>
+                            <menu-item name="UserRoles">
+                                <li><a href="" data-ng-click="routingTo('/main/user', 3)" id="userRolesMenu">User Roles</a></li>
+                            </menu-item>
+                        </ul>
+                    </li>
+                    <li class="divider-vertical"></li>
+                </menu-item>
+
+                <menu-item name="Carrier">
+                    <li class="dropdown" data-ng-class="{'active' : (page == 'carrier')}">
+                        <a href="" data-toggle="dropdown" href="" id="carrierTab"><h4>Carrier<b class="caret"></b></h4></a>
+                        <ul class="dropdown-menu">
+                            <menu-item name="Carriers">
+                                <li><a  href="" data-ng-click="routingTo('/main/carrier', 1)" id="carrierMenu">Carrier</a></li>
+                            </menu-item>
+                            <menu-item name="Languages">
+                                <li><a  href="" data-ng-click="routingTo('/main/carrier', 2)" id="languageMenu">Language</a></li>
+                            </menu-item>
+                            <menu-item name="CarrierLanguages">
+                                <li><a  href="" data-ng-click="routingTo('/main/carrier', 3)" id="carrierLanguageMenu">Carrier Languages</a></li>
+                            </menu-item>
+                        </ul>
+                    </li>
+                    <li class="divider-vertical"></li>
+                </menu-item>
+                <menu-item name="Configuration">
+                    <li class="dropdown" data-ng-class="{'active' : (page == 'configuration')}">
+                        <a href="" data-toggle="dropdown" href="" id="configurationTab"><h4>Configuration<b class="caret"></b></h4></a>
+                        <ul class="dropdown-menu">
+                            <menu-item name="Maintenance">
+                                <li><a  href="" data-ng-click="routingTo('/main/configuration', 1)" id="configMenu">Maintenance</a></li>
+                            </menu-item>
+                            <menu-item name="Export">
+                                <li><a  href="" data-ng-click="routingTo('/main/configuration', 2)" id="exportMenu">Export</a></li>
+                            </menu-item>
+                            <menu-item name="Import">
+                                <li><a  href="" data-ng-click="routingTo('/main/configuration', 3)" id="importMenu">Import</a></li>
+                            </menu-item>
+                            <menu-item name="ActivateConfig">
+                                <li><a  href="" data-ng-click="routingTo('/main/configuration', 4)" id="activateConfigMenu">Activate</a></li>
+                            </menu-item>
+                            <menu-item name="ServerEnvironment">
+                                <li><a  href="" data-ng-click="routingTo('/main/configuration', 5)" id="serverEnvironmentMenu">Server Environment</a></li>
+                            </menu-item>
+                        </ul>
+                    </li>
+                    <li class="divider-vertical"></li>
+                </menu-item>
+                <menu-item name="Locales">
+                    <li data-ng-class="{'active' : (page == 'locales')}">
+                        <a href="" data-ng-click="routingTo('/main/locales')" id="localeMenu"><h4>Locale</h4></a>
+                    </li>
+                    <li class="divider-vertical"></li>
+                </menu-item>
+                <menu-item name="ErrorLocales">
+                    <li class="dropdown" data-ng-class="{'active' : (page == 'errorlocales')}">
+                        <a href="" data-toggle="dropdown" href="" id="errorLocalesTab"><h4>Error Locales<b class="caret"></b></h4></a>
+                        <ul class="dropdown-menu">
+                            <menu-item name="UniversalScripts">
+                                <li><a href="" data-ng-click="routingTo('/main/errorlocales', 1)" id="universalScriptsMenu">Universal Scripts</a></li>
+                            </menu-item>
+                            <menu-item name="CarrierScripts">
+                                <li><a href="" data-ng-click="routingTo('/main/errorlocales', 2)" id="carrierScriptsMenu">Carrier Scripts</a></li>
+                            </menu-item>
+                        </ul>
+                    </li>
+                </menu-item>
+            </ul>
+            <ul class="nav pull-right">
+                <li>
+                    <a id="UserName"><h4 data-ng-bind="username"></h4></a>
+                </li>
+                <li class="dropdown">
+                    <a data-toggle="dropdown" href="" id="userImg"><h4><i class="icon-user"></i><b class="caret"></b></h4></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="" data-ng-click="routingTo('/main/changePwd')" id="changePwdMenu">Change Password</a></li>
+                        <li><a href="" data-ng-click="logout()" id="logoutMenu">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        </div>
+        </div>
+    </div>
+</div>
+<div data-ng-include="bodyURL">
+</div>
+

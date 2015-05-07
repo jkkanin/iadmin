@@ -1,0 +1,28 @@
+<div data-ng-controller="config.PopoverCtrl">
+     <form name="versionform">
+         <div>
+
+             <div class="control-group">
+                <label class="control-label">Version</label>
+                <div class="controls">
+                    <input type="text" class="input-block-level" ng-model="selectedVersion.Version" readonly id="version">
+                </div>
+             </div>
+
+             <div class="control-group">
+                 <label class="control-label">Description</label>
+                 <div class="controls">
+                     <textarea data-ng-readonly="!creator" rows="3" placeholder="Enter Description"
+                               name="description" id="description"
+                               class="input-block-level" data-ng-model="selectedVersion.Description" required></textarea>
+                     <span class="text-error" data-ng-show="!selectedVersion.Description && firsttime">Description is Required</span>
+                 </div>
+             </div>
+         </div>
+
+        <div class="section pull-right">
+            <a class="btn btn-success" data-ng-hide="!creator" data-ng-click="saveVersion()" id="saveVersionBtn">Save</a>
+            <a class="btn btn-success" data-ng-click="cancelVersion()" id="cancelVersionBtn">Cancel</a>
+        </div>
+     </form>
+</div>

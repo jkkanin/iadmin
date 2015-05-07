@@ -1,0 +1,44 @@
+<div class="container container-fluid formcenter" data-ng-controller="config.ImportCtrl">
+
+    <form name="importform">
+        <div class="form-horizontal pagetop span5">
+            <div class="control-group">
+                <label class="control-label" for="description">Description</label>
+                <div class="controls row-fluid">
+                    <textarea id="description" name="description" data-ng-model="description" class="span6 input-block-level" required/>
+                    <div>
+                        <span class="text-error" data-ng-show="importform.description.$error.required && firsttime">Description is Required</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="importFile">File</label>
+                <div class="controls row-fluid">
+
+
+                    <input type="file" ng-model-instant id="fileToUpload" style="display: none"  onchange="angular.element(this).scope().setFiles(this)" />
+                    <div class="input-append">
+                        <input type="text" id="importFile" name="importFile" data-ng-model="file.name" class="span input-xlarge" required>
+                        <a onclick="$('#fileToUpload').click();" class="btn">Browse</a>
+                    </div>
+                    <div>
+                        <span class="text-error" data-ng-show="importform.importFile.$error.required && firsttime">Import file is Required</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class=" button-section section">
+                    <label class="text-success" data-ng-show="uploading">Uploading......</label>
+                    <label class="text-error" data-ng-show="errorMsg" data-ng-bind="errorMsg"></label>
+                    <input type="button" ng-click="uploadFile()" value="Upload" />
+                    <label class="text-success" data-ng-show="imported">Imported Successfully</label>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+

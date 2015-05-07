@@ -1,0 +1,109 @@
+<div class="container container-fluid" data-ng-controller="config.CarrierCtrl">
+    <form name="carrierform">
+        <div class="controls-row section pagetop">
+            <div class="span2"/>
+                <label class="span1" for="carrierid">Carrier</label>
+                <div class="span4">
+                    <select data-ng-disabled="isAdd" id="carrierid" data-ng-model="selectedCarrier" data-ng-change="changeCarrier()" class="input-block-level"   ng-options="carrier.Description for carrier in carriers">
+                    </select>
+            </div>
+            <a data-toggle="modal" class="btn span1" id="addBtn" data-ng-hide="isAdd" data-ng-click="addCarrier()">Add</a>
+        </div>
+
+        <div class="section span11">
+            <div class="controls-row">
+                <div class="control-group span3">
+                    <label class="control-label" for="id">Id</label>
+                    <div class="controls">
+                        <input type="number" id="id" min="1" name='id' class="input-block-level" data-ng-model="editableCarrier.Id" required>
+                        <span class="text-error" data-ng-show="carrierform.id.$error.required && firsttime" style="display: none">Id is Required</span>
+                        <span class="text-error" data-ng-show="carrierform.id.$error.min && firsttime" style="display: none">Id should be greater than 0</span>
+                        <span class="text-error" data-ng-show="carrierform.id.$error.number && firsttime" style="display: none">Id should be numeric</span>
+                    </div>
+                </div>
+
+                <div class="control-group span4">
+                    <label class="control-label" for="code">Code</label>
+                    <div class="controls">
+                        <input type="text" id="code" name='code' ng-maxlength=15 class="input-block-level" data-ng-model="editableCarrier.Code" required>
+                        <span class="text-error" data-ng-show="carrierform.code.$error.required && firsttime" style="display: none">Carrier Code is Required</span>
+                        <span class="text-error" data-ng-show="carrierform.code.$error.maxlength" style="display: none">Carrier Code cannot be longer than 15 characters</span>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+
+                    <label class="control-label" for="version">Version</label>
+
+                    <select id="version" name="version" data-ng-model="carrierVersion" class="input-block-level"   ng-options="version.Version for version in versions" required>
+                        <option value="">Select Version</option>
+                    </select>
+                    <span class="text-error" data-ng-show="carrierform.version.$error.required && firsttime" style="display: none">Version is Required</span>
+                </div>
+
+            </div>
+            <div class="controls-row">
+
+                <div class="control-group span5">
+                    <label class="control-label" for="description">Description</label>
+                    <div class="controls">
+                        <textarea rows="1" id="description" name='description' class="input-block-level" data-ng-model="editableCarrier.Description" required></textarea>
+                        <span class="text-error" data-ng-show="carrierform.description.$error.required && firsttime" style="display: none">Description is Required</span>
+                    </div>
+                </div>
+
+                <div class="control-group span5">
+                    <label class="control-label" for="connectorVersion">Connector Version</label>
+                    <div class="controls">
+                        <input type="text" id="connectorVersion" name="connectorVersion" class="input-block-level" data-ng-model="editableCarrier.ConnectorVersion" required>
+                        <span class="text-error" data-ng-show="carrierform.connectorVersion.$error.required && firsttime" style="display: none">Connector Version is Required</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="controls-row">
+
+                <div class="control-group span5">
+                    <label class="control-label" for="carrierheader">Header</label>
+                    <div class="controls">
+                        <input type="text" id="carrierheader" name="carrierheader" class="input-block-level" data-ng-model="editableCarrier.Header" required>
+                        <span class="text-error" data-ng-show="carrierform.carrierheader.$error.required && firsttime" style="display: none">Header Url is Required</span>
+                    </div>
+                </div>
+
+                <div class="control-group span5" >
+                    <label class="control-label" for="body">Body</label>
+                    <div class="controls">
+                        <input type="text" id="body" name="body" class="input-block-level" data-ng-model="editableCarrier.Body" required>
+                        <span class="text-error" data-ng-show="carrierform.body.$error.required && firsttime" style="display: none">Body Url is Required</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="controls-row">
+
+
+                <div class="control-group span5">
+                    <label class="control-label" for="carrierfooter">Footer</label>
+                    <div class="controls">
+                        <input type="text" id="carrierfooter" name="carrierfooter" class="input-block-level" data-ng-model="editableCarrier.Footer" required>
+                        <span class="text-error" data-ng-show="carrierform.carrierfooter.$error.required && firsttime" style="display: none">Footer Url is Required</span>
+                    </div>
+                </div>
+
+                <div class="control-group span5">
+                    <label class="control-label" for="css">CSS</label>
+                    <div class="controls">
+                        <input type="text" id="css" name="css" class="input-block-level" data-ng-model="editableCarrier.CSS" required>
+                        <span class="text-error" data-ng-show="carrierform.css.$error.required && firsttime" style="display: none">CSS Url is Required</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="button-section section">
+            <a data-toggle="modal" class="btn" data-ng-click="saveCarrier()" id="saveBtn">Save</a>
+            <a data-toggle="modal" class="btn" data-ng-click="cancelCarrier()" id="cancelBtn">Cancel</a> <br/><br/>
+            <label class="control-label text-success" data-ng-show="saved && !firsttime && !isAdd" style="display: none">Saved Successfully</label>
+        </div>
+    </form>
+</div>

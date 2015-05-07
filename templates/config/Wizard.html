@@ -1,0 +1,43 @@
+<div data-ng-controller="config.PopoverCtrl">
+
+    <form name="wizardform">
+
+        <div>
+
+            <div class="control-group">
+                <label class="control-label">App Wizard</label>
+                <div class="controls">
+                    <select required data-ng-disabled="!creator" data-ng-model="selectedAppWizard"
+                            id="appWizardId"
+                            data-ng-options="appWizard.Description for appWizard in appWizards" class="input-block-level">
+                    </select>
+                    <span class="text-error" data-ng-show="!selectedAppWizard && firsttime">App Wizard is Required</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Url</label>
+                <div class="controls">
+                    <input required type="text" data-ng-readonly="!creator" placeholder="Enter Url" class="input-block-level" data-ng-model="editableWizard.Url"
+                           id="wizardurl">
+                    <span class="text-error" data-ng-show="!editableWizard.Url && firsttime">URL is Required</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Order Controller</label>
+                <div class="controls">
+                    <input required type="text" data-ng-readonly="!creator"  placeholder="Enter Order Controller" class="input-block-level"
+                           data-ng-model="editableWizard.OrderController" id="ordercontroller">
+                    <span class="text-error" data-ng-show="!editableWizard.OrderController && firsttime">Order Controller is Required</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section pull-right">
+            <a class="btn btn-success" id="saveBtn" data-ng-hide="!creator" data-ng-click="saveWizard()">Save</a>
+            <a class="btn btn-danger" id="deleteBtn" data-ng-hide="isAdd || !creator" data-ng-click="deleteWizard()">Delete</a>
+            <a class="btn btn-success" id="cancelBtn" data-ng-click="cancelWizard()">Cancel</a>
+        </div>
+    </form>
+</div>

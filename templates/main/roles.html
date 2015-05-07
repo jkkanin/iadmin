@@ -1,0 +1,12 @@
+<!--This is the main page for Roles-->
+
+<div class="container container-fluid formcenter" data-ng-controller="config.RoleCtrl">
+    <form name="roleform">
+        <div class="controls-row span5">
+            <label class="control-label" for="role">Roles</label>
+            <div class="controls">
+                <select multiple id="role" name='role' class="input-block-level" data-ng-model="role" ng-options="role.Name for role in roles"/>
+            </div>
+        </div>
+    </form>
+</div>

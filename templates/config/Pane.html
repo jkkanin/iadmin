@@ -1,0 +1,56 @@
+<div data-ng-controller="config.PopoverCtrl">
+
+    <form name="paneform">
+
+        <div>
+
+            <div class="control-group">
+                <label class="control-label">Name</label>
+                <div class="controls">
+                    <input  data-ng-readonly="!creator" required type="text" placeholder="Enter Name" class="input-block-level"
+                            id="paneName" data-ng-model="editablePane.Name">
+                    <span class="text-error" data-ng-show="!editablePane.Name && firsttime">Name is Required</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Description</label>
+                <div class="controls">
+                    <textarea data-ng-readonly="!creator" required placeholder="Enter Description" class="input-block-level"
+                              id="paneDesc" rows="3" ng-model="editablePane.Description">
+                    </textarea>
+                    <span class="text-error" data-ng-show="!editablePane.Description && firsttime">Description is Required</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Master Pane</label>
+                <div class="controls">
+                    <input  data-ng-readonly="!creator"  type="text" class="input-block-level"
+                            id="masterPaneName" data-ng-model="selectedPane.Name" data-ng-disabled="true">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Style</label>
+                <div class="controls">
+                    <input  data-ng-readonly="!creator" type="text" class="input-block-level"
+                            id="style" data-ng-model="editablePane.Style">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Order</label>
+                <div class="controls">
+                    <input data-ng-readonly="!creator" required type="number" placeholder="Enter Order" class="input-block-level"
+                           id="paneOrder" ng-model="editablePane.Order" max="9999">
+					<span class="text-error" data-ng-show="!editablePane.Order && firsttime">Order is Required or order length should not exceed 4</span>
+                </div>
+            </div>
+        </div>
+        <div class="section pull-right">
+
+            <a class="btn btn-success" data-ng-hide="!creator" data-ng-click="savePane()" id="paneSaveBtn" >Save</a>
+            <a class="btn btn-danger" data-ng-hide="isAdd || !creator" data-ng-click="deletePane()" id="paneDeleteBtn">Delete</a>
+            <a class="btn btn-success" data-ng-click="cancelPane()" id="paneCancelBtn">Cancel</a>
+        </div>
+    </form>
+</div>

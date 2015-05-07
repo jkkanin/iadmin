@@ -1,0 +1,28 @@
+<br /><br /><br /><br />
+<div class="container container-fluid languagepage formcenter">
+
+    <form ng-submit="validateLogin()">
+        <div class="form-horizontal span5">
+
+            <div class="control-group">
+                <label class="control-label" for="username">Username</label>
+                <div class="controls">
+                    <input type="text" id="username" placeholder="Username" class="input-block-level" data-ng-model="model.username" required autofocus>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="password">Password</label>
+                <div class="controls">
+                    <input type="password" id="password" placeholder="Password" class="input-block-level" data-ng-model="model.password" required>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class=" button-section section">
+                    <label class="text-error" data-ng-show="validationError.length > 0">{{validationError}}</label>
+                    <input type="submit" value="Login" class="btn"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+

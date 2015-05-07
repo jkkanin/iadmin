@@ -1,0 +1,23 @@
+<dropdown labletitle='Version' placeholder='Choose Version'  editable='true' placement="right">
+    <list dropdownlist='true' collectionlist = "version in versions"
+          displaytext='version.Description + separator + version.Version '
+          clickaction="setSelectedValue(version.Id, 'Version', 'versions', 'selectedVersion')"></list>
+</dropdown>
+
+<dropdown labletitle='Wizard' placeholder='Choose Wizard' model='selectedWizard' editable='true' placement="right" link='Add'>
+    <list dropdownlist='true' collectionlist = "wizard in wizards"
+          clickaction="setSelectedValue(wizard.Id, 'Wizard', 'wizards', 'selectedWizard')"
+          displaytext='getAppConfigurationsById(appWizards, wizard.AppWizardId).Description'></list>
+</dropdown>
+
+<dropdown labletitle='Page' placeholder='Choose Page' model='selectedPage' editable='true' placement="right" link='Add'>
+    <list dropdownList='true'  collectionlist = "page in pages"
+          clickaction="setSelectedValue(page.Id, 'Page', 'pages', 'selectedPage')"
+          displaytext='getAppConfigurationsById(appPages, page.AppPageId).Name + separator + getAppConfigurationsById(appPages, page.AppPageId).Description'></list>
+</dropdown>
+
+<dropdown labletitle='SubPage' placeholder='Choose SubPage' editable='true' placement="right" link='Add' >
+    <list dropdownlist='true' collectionlist = "subPage in subPages"
+          displaytext='subPage.Name + separator + subPage.Description | LimitCharacter'
+          clickaction="setSelectedValue(subPage.Id, 'SubPage', 'subPages', 'selectedSubPage')" ></list>
+</dropdown>

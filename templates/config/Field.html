@@ -1,0 +1,31 @@
+<div data-ng-controller="config.PopoverCtrl">
+
+    <form name="fieldform">
+
+        <div>
+
+            <div class="control-group">
+                <label class="control-label">App Field</label>
+                <div class="controls">
+                    <select required data-ng-disabled="!creator" data-ng-model="selectedAppField"
+                            id="appFieldId" data-ng-options="(appField.Name + separator + appField.Description) for appField in appFields" class="input-block-level">
+                    </select>
+                    <span class="text-error" data-ng-show="!selectedAppField && firsttime">Name is Required</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Order</label>
+                <div class="controls">
+                    <input data-ng-readonly="!creator" required type="number"
+                           id="fieldOrder" placeholder="Enter Order" class="input-block-level" ng-model="editableField.Order" max="9999">
+					<span class="text-error" data-ng-show="!editableField.Order && firsttime">Order is Required or order length should not exceed 4</span>
+                </div>
+            </div>
+        </div>
+        <div class="section pull-right">
+            <a class="btn btn-success" data-ng-hide="!creator" data-ng-click="saveField()" id="saveFieldBtn">Save</a>
+            <a class="btn btn-danger" data-ng-hide="isAdd || !creator" data-ng-click="deleteField()" id="deleteFieldBtn">Delete</a>
+            <a class="btn btn-success" data-ng-click="cancelField()"  id="cancelFieldBtn">Cancel</a>
+        </div>
+    </form>
+</div>

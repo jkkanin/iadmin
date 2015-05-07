@@ -1,0 +1,25 @@
+<div data-ng-controller="config.VersionCtrl">
+    <div class="container-fluid row-fluid">
+        <div class="span3 leftpanel">
+            <left-panel></left-panel>
+        </div>
+        <div class="span9">
+            <div  class="clearfix section">
+                <right-panel></right-panel>
+            </div>
+        </div>
+        <popupcontainer></popupcontainer>
+    </div>
+
+    <div class="button-section section">
+        <label class="control-label text-error" data-ng-show="showError">Selected version is already in workflow</label>
+        <label class="control-label text-success" data-ng-show="saved">Saved Successfully</label>
+        <label class="control-label text-error" data-ng-show="configError" data-ng-bind="configErrorMsg"></label>
+        <a class="btn btn-success" data-ng-show="creator && !disableSave" data-ng-click="save()" class="btn" id="saveConfigBtn">Save</a>
+        <a class="btn btn-primary" data-ng-show="creator && selectedVersion"  data-ng-click="cancel()" class="btn" id="cancelConfigBtn">Cancel</a>
+        <a class="btn btn-success" data-ng-show="reviewer && seenReviewed" data-ng-click="updateWorkflow('Approved')" class="btn"  id="approveConfigBtn">Approve</a>
+        <a class="btn btn-danger" data-ng-show="reviewer && seenReviewed" data-ng-click="updateWorkflow('Rejected')" class="btn"  id="rejectConfigBtn">Reject</a>
+        <a class="btn btn-primary" data-ng-show="reviewer && seenReviewed" data-ng-click="updateWorkflow('Reviewed')" class="btn"  id="reviewConfigBtn">Review</a>
+    </div>
+</div>
+

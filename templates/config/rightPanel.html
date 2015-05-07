@@ -1,0 +1,49 @@
+<h4 class="subheading pages">Sub Page
+    <ul class="breadcrumb panelbreadcrumb">
+        <li data-ng-show="breadCrumbPaneList.length > 0">
+            <a href="" data-ng-click="navigateFromBreadCrumbs()">..</a> <span class="divider">/</span>
+        </li>
+        <li data-ng-repeat="pane in breadCrumbPaneList" data-ng-class="{'active' : $index == (breadCrumbPaneList.length - 1)}">
+            <a  data-ng-hide="$index == (breadCrumbPaneList.length - 1)" href="" data-ng-click="navigateFromBreadCrumbs(pane, $index)">{{pane.Description}}</a>
+            <span data-ng-show="$index == (breadCrumbPaneList.length - 1)">{{pane.Description}}</span>
+            <span class="divider" data-ng-hide="$index == (breadCrumbPaneList.length - 1)">/</span>
+        </li>
+    </ul>
+</h4>
+<div id="pageswrapper">
+    <div class="row-fluid panellayout">
+        <div id="panessection" class="span6">
+            <panel-layout link='Add' labletitle='Pane' placement='bottom' name="AddPane"
+                          popovertitle = "Add Pane">
+                <list labletitle='Pane' collectionlist = "pane in panes"
+                      displaytext='pane.Description | LimitCharacter' placement='right' name="'Pane' + pane.Id"
+                      popovertitle = "pane.Name"
+                      clickaction="setSelectedValue(pane.Id, 'Pane', 'panes', 'selectedPane')"
+                      ngclass = "{'active' : (selectedPane.Id == pane.Id)}"
+                      iconclass="'Pane' + ($index + 1)"></list>
+            </panel-layout>
+        </div>
+        <div id="fieldsection" class="span6">
+            <panel-layout link='Add' labletitle='Field' placement='left' name="AddField"
+                          popovertitle = "Add Field">
+                <list labletitle='Field' collectionlist = "field in fields"
+                      displaytext='getAppConfigurationsById(appFields, field.AppFieldId).Name + separator + getAppConfigurationsById(appFields, field.AppFieldId).Description | LimitCharacter' placement='left'
+                      name="'Field' + field.Id"
+                      popovertitle='getAppConfigurationsById(appFields, field.AppFieldId).Name'
+                      clickaction="setSelectedValue(field.Id, 'Field', 'fields', 'selectedField')"
+                      iconclickaction="setSelectedValue(field.Id, 'Field', 'fields', 'selectedField')"
+                      ngclass = "{'active' : (selectedField.Id == field.Id)}"
+                      iconclass="'Field' + ($index + 1)"></list>
+            </panel-layout>
+        </div>
+    </div>
+    <div class="row-fluid section panellayout">
+        <div data-ng-show="reviewer || seenReviewed">
+            <h4 class="subheading">Comment</h4>
+            <div class="controls">
+                <textarea rows="3" id="comment" name='comment' maxlength="256" class="input-block-level" data-ng-model="comment" data-ng-readonly="seenReviewed && creator"></textarea>
+                <span class="text-error" data-ng-show="review && firsttime">Description is Required</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="container container-fluid languagepage formcenter" data-ng-controller="config.LanguageCtrl">
+
+    <form name="languageform">
+        <div class="form-horizontal pagetop span5">
+
+            <div class="control-group">
+                <label class="control-label" for="languageid">Language</label>
+                <div class="controls row-fluid">
+                    <select id="languageid" data-ng-disabled="isAdd" data-ng-model="selectedLanguage" class="span7 input-block-level"   ng-options="language.Description for language in languages">
+                    </select>
+                    <a data-toggle="modal" class="btn" id="addBtn" data-ng-hide="isAdd" data-ng-click="addLanguage()">Add</a>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="code">Code</label>
+                <div class="controls row-fluid">
+
+                    <input type="text" id="code" name="code" ng-maxlength=6 class="span7 input-block-level" data-ng-model="editableLanguage.Code" required>
+                    <div>
+                        <span class="text-error" data-ng-show="languageform.code.$error.required && firsttime" style="display: none;">Language Code is Required</span>
+                        <span class="text-error" data-ng-show="languageform.code.$error.maxlength" style="display: none;">Language Code cannot be longer than 6 characters</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="description">Description</label>
+                <div class="controls row-fluid">
+                    <textarea rows="3" id="description" name="description" ng-maxlength=30 class="span7 input-block-level" data-ng-model="editableLanguage.Description" required></textarea>
+                    <div>
+                        <span class="text-error" data-ng-show="languageform.description.$error.required && firsttime" style="display: none;">Description is Required</span>
+                        <span class="text-error" data-ng-show="languageform.description.$error.maxlength" style="display: none;">Description cannot be longer than 30 characters</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class=" button-section section">
+                    <a data-toggle="modal" class="btn" data-ng-click="saveLanguage()" id="saveBtn">Save</a>
+                    <a data-toggle="modal" class="btn" data-ng-click="cancel()" id="cancelBtn">Cancel</a> <br/>
+                    <label class="text-success" data-ng-show="saved && !firsttime && !isAdd" style="display: none;">Saved Successfully</label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

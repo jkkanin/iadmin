@@ -1,0 +1,38 @@
+<div class="container container-fluid formcenter" data-ng-controller="config.ActivateConfigCtrl">
+
+    <form name="configform">
+        <div class="form-horizontal pagetop span5">
+            <div class="control-group">
+                <label class="control-label" for="carrierid">Carrier</label>
+                <div class="controls row-fluid">
+                    <select id="carrierid" name="carrierid" class="span7 input-block-level" data-ng-model="selectedCarrier" ng-options="carrier.Description for carrier in carriers">
+                    </select>
+                </div>
+                <div>
+                    <span class="text-error" style="display:none;" data-ng-show="configform.carrierid.$error.required && firsttime">Carrier is required</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="versionid">Version</label>
+                <div class="controls row-fluid">
+                    <select id="versionid" class="span7 input-block-level" data-ng-model="selectedVersion" ng-options="version.Description + ' ' + version.Version for version in versions">
+                    </select>
+                </div>
+                <div>
+                    <span class="text-error" style="display:none;" data-ng-show="configform.versionid.$error.required && firsttime">Carrier is required</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class=" button-section section">
+                    <a class="btn button-section" data-ng-click="activateConfig()" id="configBtn">Activate</a> <br/><br/>
+                    <label class="text-success" data-ng-show="activated">Activated Successfully</label>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+

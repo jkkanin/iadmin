@@ -1,0 +1,75 @@
+<!--This is the home page to define uses-->
+<div class="container container-fluid" data-ng-controller="config.UserCtrl">
+    <form name="userform">
+        <div class="controls-row section pagetop">
+            <div class="span2"/>
+            <label class="span1" for="userid">User</label>
+            <div class="span4">
+                <select id="userid" data-ng-disabled="isAdd" data-ng-model="selectedUser" data-ng-change="changeUser()" class="input-block-level"   ng-options="user.Name for user in users">
+                </select>
+            </div>
+            <a data-toggle="modal" class="span1 btn" id="addBtn" data-ng-hide="isAdd" data-ng-click="addUser()">Add</a>
+        </div>
+
+        <div class="section span11">
+            <div class="controls-row">
+                <div class="control-group span5">
+                    <label class="control-label" for="name">Name</label>
+                    <div class="controls">
+                        <input type="text" id="name" name='name' ng-maxlength = 30 class="input-block-level" data-ng-model="editableUser.Name" required>
+                        <span class="text-error" data-ng-show="userform.name.$error.required && firsttime" style="display: none">Name is Required</span>
+                        <span class="text-error" data-ng-show="userform.name.$error.maxlength" style="display: none">Name cannot be longer than 15 characters</span>
+                    </div>
+                </div>
+                <div class="control-group span5">
+                    <label class="control-label" for="Username">Username</label>
+                    <div class="controls">
+                        <input type="text" id="Username" name='Username' ng-maxlength = 15 class="input-block-level" data-ng-model="editableUser.Username" required>
+                        <span class="text-error" data-ng-show="userform.Username.$error.required && firsttime" style="display: none">User Name is Required</span>
+                        <span class="text-error" data-ng-show="userform.Username.$error.maxlength" style="display: none">Username cannot be longer than 15 characters</span>
+                    </div>
+                </div>
+            </div>
+            <div class="controls-row">
+                <div class="control-group span5">
+                    <label class="control-label" for="password">Password</label>
+                    <div class="controls">
+                        <input type="password" id="password" name="password" ng-hide="isChecked"  ng-minlength=8 ng-maxlength=15 class="input-block-level" data-ng-model="editableUser.Password" required>
+                        <span class="text-error" data-ng-show="userform.password.$error.required && firsttime" style="display: none">Password is Required</span>
+                        <span class="text-error" data-ng-show="userform.password.$error.minlength" style="display: none"> Password is too short! Minimum length is 8</span><br>
+                        <span class="text-error" data-ng-show="userform.password.$error.maxlength" style="display: none"> Password is too long! Maximum length is 15</span>
+                    </div>
+                </div>
+                <div class="control-group span5">
+                    <label class="control-label">Email</label>
+                    <div class="controls">
+                        <input type="email" name='input' id="email" class="input-block-level" data-ng-model="editableUser.Email" required>
+                        <span class="text-error" data-ng-show="userform.input.$error.required && firsttime" style="display: none">Email is Required</span>
+                        <span class="text-error" data-ng-show="userform.input.$error.email" style="display: none">Not valid email!</span>
+                    </div>
+                </div>
+            </div>
+            <div class="controls-row">
+                <!--<div class="control-group span5" >-->
+                    <!--<label class="control-label ">LoginType</label>-->
+                    <!--<div class="controls ">-->
+                        <!--<select data-ng-model="editableUser.LoginType" id="logintype" name="logintype" ng-options="option for option in LogintypeOptions" required >-->
+                        <!--</select>-->
+                        <!--<span class="text-error" data-ng-show="userform.logintype.$error.required && firsttime">Login Type is Required</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="control-group span5">
+                    <label for="active">Active</label>
+                    <div>
+                        <input type="checkbox" id="active" name="active" class="input-block-level" data-ng-model="editableUser.Active" >
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="button-section section">
+            <a data-toggle="modal" class="btn" data-ng-click="saveUser()" id="saveBtn">Save</a>
+            <a data-toggle="modal" class="btn" data-ng-click="cancelUser()" id="cancelBtn">Cancel</a> <br/><br/>
+            <label class="control-label text-success" data-ng-show="saved" style="display: none">{{msg}}</label>
+        </div>
+    </form>
+</div>

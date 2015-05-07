@@ -1,0 +1,50 @@
+<div class="container container-fluid formcenter" data-ng-controller="config.ExportCtrl">
+    <form name="exportform">
+        <div class="span5">
+			<div class="control-group row" data-ng-show="exported" style="display: none;">
+				<label class="text-success text-center">Exported Successfully</label>
+			</div>
+			<div class="control-group row">
+                <label class="control-label span1" for="carrierid">Carrier</label>
+                <div class="controls row-fluid">
+                    <select id="carrierid" name="carrierid" class="span7 input-block-level" data-ng-options="carrier.Description for carrier in carriers"
+                            data-ng-model="selectedCarrier" data-ng-change="getServerEnvDetails()" >
+                    	<option value="">Select Carrier</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group row" data-ng-show="selectedCarrier" style="display: none;">
+            	<div class="control-group span2">
+		            <label class="control-label" for="availableServerEnvs">Available Environments</label>
+	                <select id="availableServerEnvs" data-ng-model="availableServerEnv" multiple class="input-block-level"  ng-options="availableServerEnv.ServerEnvName for availableServerEnv in availableServerEnvs">
+	                </select>
+		        </div>
+
+		        <div class="control-group span1">
+		            <label class="control-label">&nbsp;</label>
+		            <a data-toggle="modal" class="btn" id="rightNavMenu" data-ng-click="moveItem(availableServerEnv[0], availableServerEnvs, selectedServerEnvs, true)">>></a>
+		            <br/><br/>
+		            <a data-toggle="modal" class="btn" id="leftNavMenu" data-ng-click="moveItem(selectedServerEnv[0], selectedServerEnvs, availableServerEnvs, false)"><<</a>
+		        </div>
+
+		        <div class="control-group span2">
+		            <label class="control-label" for="selectedServerEnvs">Selected Environments</label>
+	                <select id="selectedServerEnvs" name="selectedServerEnvs" data-ng-model="selectedServerEnv" multiple class="input-block-level" data-ng-options="selectedServerEnv.ServerEnvName for selectedServerEnv in selectedServerEnvs">
+	                </select>
+	                <div class="text-center">
+						<span class="text-error" data-ng-show="selectedServerEnvs.length == 0 && firsttime">Atleaset one Environment is Required</span>
+					</div>
+		        </div>
+            </div>
+		</div>
+		<div class="row" data-ng-show="selectedCarrier" style="display: none;">
+			<div class="span5">
+				<div class="control-group row">
+	                <div class=" button-section section">
+	                    <button class="btn button-section" data-ng-click="exportScript()" id="exportBtn">Export</button>
+	                </div>
+				</div>
+			</div>
+		</div>
+    </form>
+</div>

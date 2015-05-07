@@ -1,0 +1,31 @@
+<div data-ng-controller="config.PopoverCtrl">
+
+    <form name="pageform">
+
+        <div>
+
+            <div class="control-group">
+                <label class="control-label">App Page</label>
+                <div class="controls">
+                    <select data-ng-disabled="!creator" required data-ng-model="selectedAppPage"
+                            id="appPageId" data-ng-options="(appPage.Name +  separator + appPage.Description)  for appPage in appPages" class="input-block-level">
+                    </select>
+                    <span class="text-error" data-ng-show="!selectedAppPage && firsttime">App Page is Required</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Order</label>
+                <div class="controls">
+                    <input data-ng-readonly="!creator" required type="number" placeholder="Enter Order"
+                           id="pageOrder" class="input-block-level" data-ng-model="editablePage.Order" max="9999">
+					<span class="text-error" data-ng-show="!editablePage.Order && firsttime">Order is Required or order length should not exceed 4</span>
+                </div>
+            </div>
+        </div>
+        <div class="section pull-right">
+            <a class="btn btn-success" data-ng-hide="!creator" data-ng-click="savePage()" id="savePageBtn">Save</a>
+            <a class="btn btn-danger" data-ng-hide="isAdd || !creator" data-ng-click="deletePage()" id="deletePageBtn">Delete</a>
+            <a class="btn btn-success" data-ng-click="cancelPage()" id="cancelPageBtn">Cancel</a>
+        </div>
+    </form>
+</div>

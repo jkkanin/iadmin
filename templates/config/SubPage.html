@@ -1,0 +1,65 @@
+<div data-ng-controller="config.PopoverCtrl">
+
+    <form name="subpageform">
+
+        <div>
+
+            <div class="control-group">
+                <label class="control-label">Name</label>
+                <div class="controls">
+                    <input data-ng-readonly="!creator" required type="text" placeholder="Enter Name" class="input-block-level" ng-model="editableSubPage.Name"
+                           id="subPageName">
+                    <span class="text-error" data-ng-show="!editableSubPage.Name && firsttime">Name is Required</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Description</label>
+                <div class="controls">
+                    <textarea  data-ng-readonly="!creator" required placeholder="Enter Description"
+                               id="subPageDesc" class="input-block-level" rows="3" ng-model="editableSubPage.Description">
+                    </textarea>
+                    <span class="text-error" data-ng-show="!editableSubPage.Description && firsttime">Description is Required</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Type</label>
+                <div class="controls">
+                    <select data-ng-disabled="!creator" data-ng-model="editableSubPage.Type"  ng-options="type for type in SubPagetypeOptions"
+                            id="subPageType" required >
+                    </select>
+                    <span class="text-error" data-ng-show="!editableSubPage.Type && firsttime">Type is Required</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Order</label>
+                <div class="controls">
+                    <input data-ng-readonly="!creator" required type="number" placeholder="Enter Order" class="input-block-level"
+                           id="subPageOrder" ng-model="editableSubPage.Order" max="9999">
+					<span class="text-error" data-ng-show="!editableSubPage.Order && firsttime">Order is Required or order length should not exceed 4</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Page Name for Logging</label>
+                <div class="controls">
+                    <input data-ng-readonly="!creator" required type="text" placeholder="Enter Page name for logging" class="input-block-level"
+                           id="logPageName" ng-model="editableSubPage.LogPageName">
+                    <span class="text-error" data-ng-show="!editableSubPage.LogPageName && firsttime">Page name for logging is Required</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">IsChatEnabled</label>
+                <div class="controls">
+                    <input data-ng-readonly="!creator" type="checkbox" class="input-block-level" ng-model="editableSubPage.IsChatEnabled"
+                           id="isChatEnabled">
+                </div>
+            </div>
+        </div>
+        <div class="section pull-right">
+            <a class="btn btn-success" data-ng-hide="!creator" data-ng-click="saveSubPage()" id="subPageSaveBtn">Save</a>
+            <a class="btn btn-danger" data-ng-hide="isAdd || !creator" data-ng-click="deleteSubPage()" id="subPageDeleteBtn">Delete</a>
+            <a class="btn btn-success" data-ng-click="cancelSubPage()" id="subPageCancelBtn">Cancel</a>
+        </div>
+    </form>
+</div>
+
